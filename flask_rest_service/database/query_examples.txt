@@ -1,0 +1,40 @@
+>>> u = models.User(nickname='susan', email='susan@email.com')
+>>> db.session.add(u)
+>>> db.session.commit()
+
+>>> users = models.User.query.all()
+>>> users
+[<User u'john'>, <User u'susan'>]
+>>> for u in users:
+...     print(u.id,u.nickname)
+
+>>> import datetime
+>>> u = models.User.query.get(1)
+>>> p = models.Post(body='my first post!', timestamp=datetime.datetime.utcnow(), author=u)
+>>> db.session.add(p)
+>>> db.session.commit()
+
+# get all posts from a user
+>>> u = models.User.query.get(1)
+>>> u
+<User u'john'>
+>>> posts = u.posts.all()
+>>> posts
+[<Post u'my first post!'>]
+
+# obtain author of each post
+>>> for p in posts:
+...     print(p.id,p.author.nickname,p.body)
+...
+1 john my first post!
+
+# a user that has no posts
+>>> u = models.User.query.get(2)
+>>> u
+<User u'susan'>
+>>> u.posts.all()
+[]
+
+# get all users in reverse alphabetical order
+>>> models.User.query.order_by('nickname desc').all()
+[<User u'susan'>, <User u'john'>]
