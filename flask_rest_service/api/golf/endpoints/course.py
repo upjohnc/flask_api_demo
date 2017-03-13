@@ -33,7 +33,7 @@ class CourseItem(Resource):
         """Returns a course with related scores."""
         return Course.query.filter(Course.id == id).one()
 
-    @api.expect(course)
+    @api.expect(course, validate=True)
     @api.response(204, 'Course successfully updated.')
     def put(self, id):
         """
