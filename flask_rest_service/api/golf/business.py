@@ -21,10 +21,10 @@ def update_course(id, data):
         course.course_name = course_name
     city = data.get('city', None)
     if city:
-        city.course_name = city
+        course.city = city
     state = data.get('state', None)
     if state:
-        state.course_name = state
+        course.state = state
 
     db.session.add(course)
     db.session.commit()
