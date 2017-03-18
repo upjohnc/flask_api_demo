@@ -9,7 +9,6 @@ for i in ['.']:
 from flask import Flask, Blueprint
 from flask_rest_service import settings
 from flask_rest_service.api.golf.endpoints.course import ns as golf_courses_namespace
-from flask_rest_service.api.golf.endpoints.score import ns as golf_score_namespace
 from flask_rest_service.api.golf.restplus import api
 from flask_rest_service.database import db
 
@@ -27,7 +26,6 @@ def initialize_app(flask_app):
     blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(blueprint)
     api.add_namespace(golf_courses_namespace)
-    api.add_namespace(golf_score_namespace)
     flask_app.register_blueprint(blueprint)
 
     db.init_app(flask_app)
@@ -35,4 +33,10 @@ def initialize_app(flask_app):
         db.create_all()
 
 
-initialize_app(app)
+def main():
+    initialize_app(app)
+    app.run(debug=settings.FLASK_DEBUG)
+
+
+if __name__ == '__main__':
+    main()

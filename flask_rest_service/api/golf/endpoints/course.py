@@ -19,7 +19,7 @@ class CourseCollection(Resource):
     @api.response(201, 'Course successfully created.')
     @api.expect(course)
     def post(self):
-        """Creates a new goulf course entry."""
+        """Creates a new golf course entry."""
         data = request.json
         create_course(data)
         return None, 201
