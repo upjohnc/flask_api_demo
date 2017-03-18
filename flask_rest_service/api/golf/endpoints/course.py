@@ -3,7 +3,7 @@ from flask_restplus import Resource
 from flask_rest_service.api.golf.business import create_course, update_course
 from flask_rest_service.api.golf.serializers import course, course_with_scores
 from flask_rest_service.api.golf.restplus import api
-from flask_rest_service.database.models import Course
+from flask_rest_service.database.models import GolfCourse
 
 ns = api.namespace('golf/courses', description='Operations related to golf courses.')
 
@@ -13,7 +13,7 @@ class CourseCollection(Resource):
     @api.marshal_list_with(course)
     def get(self):
         """Returns list of courses"""
-        courses = Course.query.all()
+        courses = GolfCourse.query.all()
         return courses
 
     @api.response(201, 'Course successfully created.')
@@ -31,7 +31,7 @@ class CourseItem(Resource):
     @api.marshal_with(course_with_scores)
     def get(self, id):
         """Returns a course with related scores."""
-        return Course.query.filter(Course.id == id).one()
+        return GolfCourse.query.filter(GolfCourse.id == id).one()
 
     @api.expect(course, validate=True)
     @api.response(204, 'Course successfully updated.')
