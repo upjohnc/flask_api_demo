@@ -7,7 +7,7 @@ api = Api(version='1.01', title='Golf Scores', description='A database to store 
 
 @api.errorhandler
 def default_error(e):
-    message = 'An unhandeled exception occurred'
+    message = 'An unhandled exception occurred'
 
     if not settings.FLASK_DEBUG:
         return {'message': message}, 500
